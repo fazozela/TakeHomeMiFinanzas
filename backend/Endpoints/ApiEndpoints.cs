@@ -87,11 +87,7 @@ public static class ApiEndpoints
                 !await db.Moves.AnyAsync(m => m.Id == req.Move2Id))
                 return Results.BadRequest("Unknown move.");
 
-            int? roundWinnerId = null;
-            if (await db.MoveRules.AnyAsync(r => r.WinnerMoveId == req.Move1Id && r.LoserMoveId == req.Move2Id))
-                roundWinnerId = game.Player1Id;
-            else if (await db.MoveRules.AnyAsync(r => r.WinnerMoveId == req.Move2Id && r.LoserMoveId == req.Move1Id))
-                roundWinnerId = game.Player2Id;
+            var roundWinnerId = await ResolveWinnerAsync(db, req.Move1Id, req.Move2Id, game.Player1Id, game.Player2Id);
 
             var number = await db.Rounds.CountAsync(r => r.GameId == id) + 1;
             db.Rounds.Add(new Round
@@ -126,6 +122,15 @@ public static class ApiEndpoints
                 .ThenBy(p => p.Name)
                 .Select(p => new StatDto(p.Name, db.Games.Count(g => g.WinnerId == p.Id)))
                 .ToListAsync());
+    }
+
+    public static async Task<int?> ResolveWinnerAsync(AppDbContext db, int move1Id, int move2Id, int player1Id, int player2Id)
+    {
+        if (await db.MoveRules.AnyAsync(r => r.WinnerMoveId == move1Id && r.LoserMoveId == move2Id))
+            return player1Id;
+        if (await db.MoveRules.AnyAsync(r => r.WinnerMoveId == move2Id && r.LoserMoveId == move1Id))
+            return player2Id;
+        return null;
     }
 
     static async Task<Player> GetOrCreatePlayer(AppDbContext db, string name)

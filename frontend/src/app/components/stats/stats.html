@@ -1,0 +1,14 @@
+<h5>Games won</h5>
+<table class="table">
+  <thead><tr><th>Player</th><th class="text-end">Games won</th></tr></thead>
+  <tbody>
+    @for (stat of stats(); track stat.name) {
+      <tr>
+        <td>{{ stat.name }}</td>
+        <td class="text-end">{{ stat.gamesWon }}</td>
+      </tr>
+    } @empty {
+      <tr><td colspan="2" class="text-muted">No games played yet.</td></tr>
+    }
+  </tbody>
+</table>

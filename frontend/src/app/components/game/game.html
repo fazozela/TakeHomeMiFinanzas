@@ -1,0 +1,68 @@
+@if (error()) {
+  <div class="alert alert-danger">{{ error() }}</div>
+}
+
+@switch (phase()) {
+
+  @case ('setup') {
+    <h2 class="mb-4">Enter Player's Names</h2>
+    <div class="row mb-3">
+      <label class="col-sm-3 col-form-label">Player 1</label>
+      <div class="col-sm-6">
+        <input class="form-control" [(ngModel)]="player1" (keyup.enter)="start()">
+      </div>
+    </div>
+    <div class="row mb-4">
+      <label class="col-sm-3 col-form-label">Player 2</label>
+      <div class="col-sm-6">
+        <input class="form-control" [(ngModel)]="player2" (keyup.enter)="start()">
+      </div>
+    </div>
+    <button class="btn btn-primary px-5" (click)="start()"
+            [disabled]="!player1.trim() || !player2.trim()">Start</button>
+  }
+
+  @case ('done') {
+    <div class="text-center py-5">
+      <h2>We have a WINNER!!</h2>
+      <p class="fs-4 my-4">{{ winner() }} is the new EMPEROR!</p>
+      <button class="btn btn-primary" (click)="playAgain()">Play Again</button>
+    </div>
+  }
+
+  @default {
+    <div class="row">
+      <div class="col-md-7">
+        <h2>Round {{ roundNumber() }}</h2>
+        <p class="fs-4 my-3">{{ currentPlayer() }}</p>
+
+        <div class="d-flex align-items-center gap-2 mb-4">
+          <label class="col-form-label">Select Move:</label>
+          <select class="form-select w-auto" [(ngModel)]="selectedMoveId">
+            @for (move of moves(); track move.id) {
+              <option [ngValue]="move.id">{{ move.name }}</option>
+            }
+          </select>
+        </div>
+
+        <button class="btn btn-primary px-5" (click)="ok()">Ok</button>
+      </div>
+
+      <div class="col-md-5">
+        <h5>Score</h5>
+        <p class="mb-2">{{ names().p1 }} {{ score().p1 }} &ndash; {{ score().p2 }} {{ names().p2 }}</p>
+        <table class="table table-sm">
+          <thead><tr><th>Round</th><th>Winner</th></tr></thead>
+          <tbody>
+            @for (round of history(); track round.number) {
+              <tr>
+                <td>{{ round.number }}</td>
+                <td>{{ round.winner ?? '—' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+}

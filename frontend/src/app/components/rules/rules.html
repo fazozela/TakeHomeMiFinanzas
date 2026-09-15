@@ -1,0 +1,53 @@
+@if (error()) {
+  <div class="alert alert-danger">{{ error() }}</div>
+}
+
+<div class="row">
+  <div class="col-md-5">
+    <h5>Moves</h5>
+    <ul class="list-group mb-3">
+      @for (move of moves(); track move.id) {
+        <li class="list-group-item">{{ move.name }}</li>
+      }
+    </ul>
+
+    <div class="input-group">
+      <input class="form-control" placeholder="New move" [(ngModel)]="newMoveName"
+             (keyup.enter)="addMove()">
+      <button class="btn btn-outline-primary" (click)="addMove()">Add</button>
+    </div>
+  </div>
+
+  <div class="col-md-7">
+    <h5>Rules</h5>
+    <table class="table table-sm align-middle">
+      <tbody>
+        @for (rule of rules(); track rule.winnerMoveId + '-' + rule.loserMoveId) {
+          <tr>
+            <td>{{ rule.winnerName }} beats {{ rule.loserName }}</td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-outline-danger" (click)="removeRule(rule)">Remove</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr><td class="text-muted">No rules yet — every round would be a tie.</td></tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="input-group">
+      <select class="form-select" [(ngModel)]="winnerId">
+        @for (move of moves(); track move.id) {
+          <option [ngValue]="move.id">{{ move.name }}</option>
+        }
+      </select>
+      <span class="input-group-text">beats</span>
+      <select class="form-select" [(ngModel)]="loserId">
+        @for (move of moves(); track move.id) {
+          <option [ngValue]="move.id">{{ move.name }}</option>
+        }
+      </select>
+      <button class="btn btn-outline-primary" (click)="addRule()">Add</button>
+    </div>
+  </div>
+</div>

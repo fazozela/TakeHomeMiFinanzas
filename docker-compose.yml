@@ -24,5 +24,10 @@ services:
       db:
         condition: service_healthy
         
+  web:
+    build: ./frontend
+    ports: [ "4200:80" ]
+    depends_on: [ api ]
+        
 volumes:
   mssql-data:

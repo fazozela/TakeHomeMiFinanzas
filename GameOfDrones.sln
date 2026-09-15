@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfDrones.Api", "backend\GameOfDrones.Api.csproj", "{C0260078-BCA0-4C4E-AAEA-C5BB9F14665D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfDrones.Tests", "backend.Tests\GameOfDrones.Tests.csproj", "{238ECA44-9812-4570-907A-5D8E78CC3E9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{C0260078-BCA0-4C4E-AAEA-C5BB9F14665D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0260078-BCA0-4C4E-AAEA-C5BB9F14665D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0260078-BCA0-4C4E-AAEA-C5BB9F14665D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{238ECA44-9812-4570-907A-5D8E78CC3E9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{238ECA44-9812-4570-907A-5D8E78CC3E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{238ECA44-9812-4570-907A-5D8E78CC3E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{238ECA44-9812-4570-907A-5D8E78CC3E9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
