@@ -1,0 +1,28 @@
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${SA_PASSWORD}
+    ports: ["1433:1433"]
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$$MSSQL_SA_PASSWORD" -C -Q "SELECT 1"
+      interval: 10s
+      retries: 10
+      start_period: 30s
+    volumes:
+      - mssql-data:/var/opt/mssql
+
+  api:
+    build: ./backend
+    environment:
+      ConnectionStrings__Default: "Server=db;Database=GameOfDrones;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
+      ASPNETCORE_ENVIRONMENT: Development
+    ports: ["5080:8080"]
+    depends_on:
+      db:
+        condition: service_healthy
+        
+volumes:
+  mssql-data:
