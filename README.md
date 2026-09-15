@@ -13,7 +13,7 @@ Piedra, papel o tijera por turnos para dos jugadores en la misma pantalla, gana 
 
 Único requisito: Docker.
 
-### 1. Crea el archivo .env
+### 1. Crea el archivo .env, ejecuta el siguiente comando:
 
 ```bash
 cp .env.example .env
