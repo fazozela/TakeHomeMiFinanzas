@@ -12,15 +12,15 @@ Piedra, papel o tijera por turnos para dos jugadores en la misma pantalla, gana 
 ## Cómo ejecutarlo
 
 Único requisito: Docker.
-Muy importante, revisa el .env.example y crea un archivo .env  # define el SA_PASSWORD (ejemplo correcto: FazozelaPassword1!)
+Muy importante, revisa el .env.example y crea un archivo .env, define el SA_PASSWORD (ejemplo correcto: FazozelaPassword1!)
 
 ```bash
 docker compose up --build
 ```
 
-Aplicación: http://localhost:4200
-API (Swagger): http://localhost:5080/swagger
-Health check: http://localhost:5080/health |
+- Aplicación: http://localhost:4200
+- API (Swagger): http://localhost:5080/swagger
+- Health check: http://localhost:5080/health |
 
 
 Para reiniciar desde cero, borrando las partidas guardadas:
